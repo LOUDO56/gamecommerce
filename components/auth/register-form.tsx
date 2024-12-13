@@ -3,17 +3,24 @@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '@/schemas';
+import { RegisterSchema } from '@/schemas';
 import { z } from 'zod';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import CardWrapper from './card-wrapper';
+import { useState } from 'react';
+import { register } from '@/actions/register';
+import FormError from './form-error';
+import FormSuccess from './form-success';
 
 const RegisterForm = () => {
 
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [pending, setPending] = useState(false);
 
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -21,8 +28,17 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
+    setError("");
+    setSuccess("");
+    setPending(true);
+    const res = await register(values);
+    setPending(false);
+    console.log('aa')
+    console.log(res);
+    setError(res.error);
+    setSuccess(res.success);
+    
   };
 
   return (
@@ -67,15 +83,17 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type='password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className='mt-3'>Submit</Button>
+          <Button disabled={pending} type="submit" className='mt-3'>Submit</Button>
         </form>
       </Form>
+      <FormError message={error} />
+      <FormSuccess message={success} />
     </CardWrapper>
   )
 }
