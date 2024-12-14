@@ -44,20 +44,22 @@ const RegisterForm = () => {
   return (
     <CardWrapper
       titleLabel='Create an account'
+      descriptionLabel='Please fill your informations.'
       backButtonLabel='Already have an account?'
       backButtonLabelLink='Sign in'
       backButtonHref='/auth/login'
+      showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='flex gap-3 flex-col'>
-          <FormField 
+          <FormField
             control={form.control}
             name='username'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input type='text' placeholder='John Doe' {...field} />
+                  <Input type='text' autoComplete='off' placeholder='John Doe' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -70,7 +72,7 @@ const RegisterForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type='email' placeholder='johndoe@example.com' {...field} />
+                  <Input type='email' autoComplete='off' placeholder='johndoe@example.com' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,7 +91,7 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Button disabled={pending} type="submit" className='mt-3'>Submit</Button>
+          <Button disabled={pending} type="submit" className='mt-3'>Sign up</Button>
         </form>
       </Form>
       <FormError message={error} />

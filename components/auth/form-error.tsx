@@ -6,8 +6,8 @@ const FormError = ({ message }: { message: string | undefined }) => {
   if(!message) return null;
     
   return (
-    <div className='flex items-center gap-3 rounded-lg border-2 border-red-300 bg-red-200 w-full text-red-700 py-4 px-3 mt-3'>
-        <IoInformationCircleOutline className='w-4 h-4' />
+    <div className='flex items-center gap-2 rounded-lg bg-red-200 w-full text-red-600 py-4 px-3 mt-3 text-sm'>
+        <IoInformationCircleOutline size={14} />
         <span>{message}</span>
     </div>
   )

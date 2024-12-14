@@ -26,10 +26,18 @@ const CardWrapper = ({
   return (
     <Card className='w-[400px] mx-4 shadow-md'>
         <CardHeader className='text-center'>
-            <CardTitle className='text-xl'>{titleLabel}</CardTitle>
+            <CardTitle className='text-2xl'>{titleLabel}</CardTitle>
             <CardDescription>{descriptionLabel}</CardDescription>
         </CardHeader>
-        <CardContent>{children}</CardContent>
+        <CardContent className='pb-0'>{children} 
+            {showSocial && 
+                <div className='flex gap-2 items-center my-5'>
+                    <span className='h-[1px] w-full bg-border'></span>
+                    <span className='text-sm text-gray-700'>or</span>
+                    <span className='h-[1px] w-full bg-border'></span>
+                </div>
+            }
+        </CardContent>
         {showSocial && (
             <CardFooter>
                 <Social />
