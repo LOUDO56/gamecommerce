@@ -22,7 +22,7 @@ const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       password: ""
     },
@@ -48,13 +48,14 @@ const RegisterForm = () => {
       backButtonLabel='Already have an account?'
       backButtonLabelLink='Sign in'
       backButtonHref='/auth/login'
+      type='signup'
       showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='flex gap-3 flex-col'>
           <FormField
             control={form.control}
-            name='username'
+            name='name'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>

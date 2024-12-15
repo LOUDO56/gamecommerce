@@ -11,6 +11,7 @@ interface CardWrapperProps {
     backButtonHref: string;
     backButtonLabel: string;
     backButtonLabelLink: string;
+    type: "signin" | "signup";
     children: React.ReactNode;
 }
 
@@ -21,6 +22,7 @@ const CardWrapper = ({
     backButtonHref,
     backButtonLabel,
     backButtonLabelLink,
+    type,
     children
 }: CardWrapperProps) => {
   return (
@@ -40,7 +42,7 @@ const CardWrapper = ({
         </CardContent>
         {showSocial && (
             <CardFooter>
-                <Social />
+                <Social type={type} />
             </CardFooter>
         )}
         <CardFooter className='flex items-center justify-center'>

@@ -9,7 +9,7 @@ export const PUBLIC_ROUTES = [
 ]
 
 export const PRIVATES_ROUTES = [
-    "/admin",
+
 ]
 
 export const API_AUTH_PREFIX = "/api/auth";

@@ -45,6 +45,7 @@ const LoginForm = () => {
       backButtonLabel="Don't have an account?"
       backButtonLabelLink='Sign up'
       backButtonHref='/auth/register'
+      type='signin'
       showSocial
     >
       <Form {...form}>
