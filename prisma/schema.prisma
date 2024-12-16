@@ -72,7 +72,7 @@ model Game {
   title       String      @unique
   description String
   price       Float
-  platform    Platform[]
+  platforms    Platform[]
   imageUrl    String
   stock       Int
   createdAt   DateTime    @default(now())

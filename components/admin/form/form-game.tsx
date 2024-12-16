@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { platformsForm } from '@/lib/utils';
 import { GameSchema } from '@/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Platform } from '@prisma/client';
@@ -41,7 +42,7 @@ const FormGame = ({
       title,
       description,
       price,
-      platform: platforms,
+      platforms,
       imageUrl,
       stock
     }
@@ -50,15 +51,6 @@ const FormGame = ({
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, setIsPending] = useState(false);
-
-  const platformsForm = [
-    { id: Platform.PC, label: "PC" },
-    { id: Platform.PS4, label: "PS4" },
-    { id: Platform.PS5, label: "PS5" },
-    { id: Platform.XBOX_ONE, label: "Xbox One" },
-    { id: Platform.XBOX_SERIES_X_S, label: "Xbox Series X|S" },
-    { id: Platform.NINTENDO_SWITCH, label: "Nintendo Switch" },
-  ] as const;
 
   const onSubmit = async (values: z.infer<typeof GameSchema>) => {
     setIsPending(false);
@@ -71,7 +63,6 @@ const FormGame = ({
       form.reset();
     }
   }
- 
 
   return (
     <>
@@ -121,7 +112,7 @@ const FormGame = ({
           />
           <FormField
             control={form.control}
-            name="platform"
+            name="platforms"
             render={() => (
               <FormItem>
                 <div className="mb-4">
@@ -131,7 +122,7 @@ const FormGame = ({
                   <FormField
                     key={item.id}
                     control={form.control}
-                    name="platform"
+                    name="platforms"
                     render={({ field }) => {
                       return (
                         <FormItem

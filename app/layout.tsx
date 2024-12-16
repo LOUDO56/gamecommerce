@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import "./index.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {

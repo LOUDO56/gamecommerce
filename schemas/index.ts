@@ -16,7 +16,14 @@ export const GameSchema = z.object({
     title: z.string().min(1, "Title is required.").default(""),
     description: z.string().min(1, "Description is required.").default(""),
     price: z.coerce.number({ message: "Please put a number!" }).min(1, "Number is required.").default(0),
-    platform: z.array(z.nativeEnum(Platform), { message: "At least one platform is required." }).refine((value) => value.length > 0, "At least one platform is required."),
+    platforms: z.array(z.nativeEnum(Platform), { message: "At least one platform is required." }).refine((value) => value.length > 0, "At least one platform is required."),
     imageUrl: z.string().min(1, "Image link is required.").default(""),
     stock: z.coerce.number({ message: "Please put a number!" }).int("Only digits!").min(1, "Stock is required.").default(0),
+})
+
+export const FilterGameSchema = z.object({
+    platform: z.nativeEnum(Platform, { message: "Invalid platform." }).optional(),
+    filter: z.string({ message: "Invalid filter" }).optional(),
+    fromPrice: z.coerce.number().int().min(0, "Please put a valid number.").optional(),
+    toPrice: z.coerce.number().int().min(0, "Please put a valid number.").optional(),
 })

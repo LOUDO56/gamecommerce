@@ -12,14 +12,14 @@ export const addGame = async (values: z.infer<typeof GameSchema>) => {
         return { error: "Invalid fields!" }
     }
     
-    const { title, description, price, platform, imageUrl, stock } = validatedFields.data;
+    const { title, description, price, platforms, imageUrl, stock } = validatedFields.data;
 
     const existingGame = await findGameByTitle(title);
 
     if(existingGame) return { error: "This game already exists!" }
 
     await prisma.game.create({
-        data: { title, description, price, platform: platform, imageUrl, stock }
+        data: { title, description, price, platforms, imageUrl, stock }
     })
 
     return { success: "The game has been added to the database!" }
