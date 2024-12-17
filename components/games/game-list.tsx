@@ -20,7 +20,7 @@ const GameList = ({
 
   const [games, setGames] = useState<Array<Game>>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const skeletonGameList = Array(20).fill(<GameSkeleton />)
+  const skeletonGameList = Array(25).fill(<GameSkeleton />)
 
   useEffect(() => {
     const loadGames = async () => {

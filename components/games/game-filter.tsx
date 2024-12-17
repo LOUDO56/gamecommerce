@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Cross, X } from 'lucide-react'
+import ResetButtonButton from '../buttons/reset-select-button'
 
 interface GameFilterProps {
   setPlatform: Function
@@ -47,20 +48,12 @@ const GameFilter = ({
   }
 
   const handleReset = () => {
-    form.reset({
-      platform: undefined,
-      filter: "",
-      fromPrice: 0,
-      toPrice: 0
-    });
-  
+    form.reset();
+
     setPlatform(undefined);
     setFilter("");
     setFromPrice(0);
     setToPrice(0);
-
-    form.setValue('platform', undefined);
-    form.setValue('filter', '');
   };
 
   const handleChange = async (values: z.infer<typeof FilterGameSchema>) => {
@@ -95,7 +88,7 @@ const GameFilter = ({
                     ...form.getValues(),
                   })
                 }} 
-                value={field.value}
+                value={field.value ?? ""}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -114,12 +107,9 @@ const GameFilter = ({
                 </SelectContent>
               </Select>
               {field.value && (
-                <Button 
-                  variant="outline"
-                  className='absolute px-1 py-0 top-2 -right-3 rounded-full w-[30px] h-[30px]' 
-                  onClick={() => selectHandleReset("platform")}>
-                  {<X />}
-                </Button>
+                <ResetButtonButton 
+                  selectHandleReset={() => selectHandleReset('platform')}
+                />
               )}
               <FormMessage />
             </FormItem>
@@ -157,12 +147,9 @@ const GameFilter = ({
                 </SelectContent>
               </Select>
               {field.value && (
-                <Button 
-                  variant="outline"
-                  className='absolute px-1 py-0 top-2 -right-3 rounded-full w-[30px] h-[30px]' 
-                  onClick={() => selectHandleReset("filter")}>
-                  {<X />}
-                </Button>
+                <ResetButtonButton 
+                  selectHandleReset={() => selectHandleReset('filter')}
+                />
               )}
               <FormMessage />
             </FormItem>
