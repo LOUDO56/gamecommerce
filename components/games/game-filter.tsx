@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Cross, X } from 'lucide-react'
-import ResetButtonButton from '../buttons/reset-select-button'
+import ResetButtonButton from '../ui/reset-select-button'
 
 interface GameFilterProps {
   setPlatform: Function

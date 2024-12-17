@@ -31,9 +31,14 @@ export const fetchGames = async (
     platform?: Platform,
     filter?: "cheaper" | "expensive" | "recent" | "older",
     fromPrice?: number,
-    toPrice?: number
+    toPrice?: number,
+    page?: number,
+    pageSize?: number
 ) => {
     try {
+
+        if(!page) page = 1;
+        if(!pageSize) pageSize = 10;
         
         const where: any = {};
         
@@ -66,12 +71,16 @@ export const fetchGames = async (
             }
         }
 
-        const games = await prisma.game.findMany({
+        const fetchedGames = await prisma.game.findMany({
             where,
-            orderBy
+            orderBy,
+            skip: (page - 1) * pageSize,
+            take: pageSize
         })
 
-        return games;
+        const totalCountGames = await prisma.game.count();
+
+        return { fetchedGames, totalCountGames };
     } catch (error) {
         console.error("Error fetching games:", error);
         throw new Error("Failed to fetch games.");

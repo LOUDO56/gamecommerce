@@ -6,7 +6,7 @@ import GameList from './game-list'
 import { Platform } from '@prisma/client'
 
 
-const GameListContainer = () => {
+const GameListContainer = ({ customClass }: { customClass?: string }) => {
   
   const [platform, setPlatform] = useState<Platform>();
   const [filter, setFilter] = useState<"cheaper" | "expensive" | "recent" | "older">();
@@ -14,7 +14,7 @@ const GameListContainer = () => {
   const [toPrice, setToPrice] = useState(0);
 
   return (
-    <div className='flex flex-col gap-10 m-14'>
+    <div className={`flex flex-col gap-10 ${customClass}`}>
       <div>
         <GameFilter 
           setPlatform={setPlatform}
@@ -23,7 +23,7 @@ const GameListContainer = () => {
           setToPrice={setToPrice}
         />
       </div>
-      <div className='flex flex-wrap gap-5 items-center sm:justify-start justify-center'>
+      <div>
         <GameList 
           platform={platform}
           filter={filter}

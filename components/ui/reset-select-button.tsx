@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../ui/button'
+import { Button } from './button'
 import { X } from 'lucide-react'
 
 const ResetButtonButton = ({ selectHandleReset }: { selectHandleReset: Function } ) => {
