@@ -13,6 +13,7 @@ export const RegisterSchema = z.object({
 })
 
 export const GameSchema = z.object({
+    id: z.string().optional(),
     title: z.string().min(1, "Title is required.").default(""),
     description: z.string().min(1, "Description is required.").default(""),
     price: z.coerce.number({ message: "Please put a number!" }).min(1, "Number is required.").default(0),

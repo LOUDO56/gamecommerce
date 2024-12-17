@@ -64,6 +64,7 @@ const GameList = ({
             imageUrl={game.imageUrl}
             title={game.title}
             price={game.price}
+            href={`/admin/dashboard/edit/game/${game.id}`}
           />
         ))}
         {(games.length === 0 && !isLoading) && (

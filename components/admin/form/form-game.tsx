@@ -1,13 +1,13 @@
 'use client'
 
 import { addGame } from '@/actions/add/add-game';
+import { editGame } from '@/actions/add/edit-game';
 import FormError from '@/components/auth/form-error';
 import FormSuccess from '@/components/auth/form-success';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { platformsForm } from '@/lib/utils';
 import { GameSchema } from '@/schemas';
@@ -15,30 +15,35 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Platform } from '@prisma/client';
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { set, z } from 'zod';
+import { z } from 'zod';
 
 interface FormGameProps {
+  id?: string
   title?: string;
   description?: string;
   price?: number;
   platforms?: Platform[];
   imageUrl?: string;
-  stock?: number
+  stock?: number;
+  mode: "add" | "edit";
 
 }
 
 const FormGame = ({
+  id = "",
   title = "",
   description = "",
   price = 0,
   platforms = [],
   imageUrl = "",
-  stock = 0
+  stock = 0,
+  mode
 }: FormGameProps) => {
 
   const form = useForm<z.infer<typeof GameSchema>>({
     resolver: zodResolver(GameSchema),
     defaultValues: {
+      id,
       title,
       description,
       price,
@@ -56,7 +61,15 @@ const FormGame = ({
     setIsPending(false);
     setError("");
     setSuccess("");
-    const res = await addGame(values);
+    let res;
+    switch (mode) {
+      case "add":
+        res = await addGame(values);
+        break;
+      case "edit":
+        res = await editGame(values);
+        break;
+    }
     setError(res?.error);
     setSuccess(res?.success);
     if(res?.success) {
@@ -180,6 +193,21 @@ const FormGame = ({
               </FormItem>
             )}
           />
+          {mode === "edit" && (
+             <FormField 
+              control={form.control}
+              name='id'
+              defaultValue={id}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input type='hidden' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           <Button disabled={isPending} type="submit" className='mt-3'>Submit</Button>
         </form>
         <FormError message={error} />

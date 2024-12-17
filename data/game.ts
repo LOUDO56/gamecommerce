@@ -86,3 +86,14 @@ export const fetchGames = async (
         throw new Error("Failed to fetch games.");
     }
 }
+
+
+export const fetchGameInfo = async (id: string) => {
+    const gameInfo = await prisma.game.findUnique(
+        { 
+            where: { id } 
+        }
+    );
+
+    return gameInfo;
+}
