@@ -15,17 +15,17 @@ import ResetButtonButton from '../ui/reset-select-button'
 import { Platform } from '@prisma/client'
 
 interface GameFilterProps {
-  setPlatform: Function
-  setFilter: Function
-  setFromPrice: Function
-  setToPrice: Function
+  setPlatform: Function;
+  setFilter: Function;
+  setFromPrice: Function;
+  setToPrice: Function;
 }
 
 const GameFilter = ({
   setPlatform,
   setFilter,
   setFromPrice,
-  setToPrice
+  setToPrice,
 }: GameFilterProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,11 +48,13 @@ const GameFilter = ({
     const { platform, filter, fromPrice, toPrice } = validatedFields.data;
     
     const params = new URLSearchParams();
+    const search = searchParams.get('search');
 
     if (platform) params.set('platform', platform);
     if (filter) params.set('filter', filter);
     if (fromPrice && fromPrice > 0) params.set('fromPrice', fromPrice.toString());
     if (toPrice && toPrice > 0) params.set('toPrice', toPrice.toString());
+    if (search) params.set('search', search.toString());
 
     router.push(`?${params.toString()}`, { scroll: false });
 
@@ -91,12 +93,12 @@ const GameFilter = ({
 
   return (
     <Form {...form}>
-      <form className='flex xl:flex-row flex-col gap-5'>
+      <form className='flex md:flex-row flex-col gap-5 justify-center flex-wrap'>
         <FormField 
           control={form.control}
           name='platform'
           render={({ field }) => (
-            <FormItem className='xl:w-[200px] w-full relative'>
+            <FormItem className='md:w-[200px] w-full relative'>
               <FormLabel>Platform</FormLabel>
               <Select 
                 onValueChange={(value) => {
@@ -137,7 +139,7 @@ const GameFilter = ({
           control={form.control}
           name='filter'
           render={({ field }) => (
-            <FormItem className='xl:w-[200px] w-full relative'>
+            <FormItem className='md:w-[200px] w-full relative'>
               <FormLabel>Filter</FormLabel>
               <Select 
                 onValueChange={(value) => {
@@ -178,7 +180,7 @@ const GameFilter = ({
           control={form.control}
           name='fromPrice'
           render={({ field }) => (
-            <FormItem className='xl:w-[200px] w-full'>
+            <FormItem className='md:w-[200px] w-full'>
               <FormLabel>From €</FormLabel>
               <FormControl>
                 <Input 
@@ -201,7 +203,7 @@ const GameFilter = ({
           control={form.control}
           name='toPrice'
           render={({ field }) => (
-            <FormItem className='xl:w-[200px] w-full'>
+            <FormItem className='md:w-[200px] w-full'>
               <FormLabel>To €</FormLabel>
               <FormControl>
                 <Input 
@@ -220,7 +222,7 @@ const GameFilter = ({
             </FormItem>
           )}
         />
-        <Button type='reset' variant='outline' onClick={handleReset} className='xl:self-end xl:w-auto w-full self-start mt-1 xl:mt-0'>Reset</Button>
+        <Button type='reset' variant='outline' onClick={handleReset} className='md:self-end md:w-auto w-full self-start mt-3 md:mt-0'>Reset</Button>
       </form>
     </Form>
   )

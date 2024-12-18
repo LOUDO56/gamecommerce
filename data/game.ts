@@ -32,6 +32,7 @@ export const fetchGames = async (
     filter?: "cheaper" | "expensive" | "recent" | "older",
     fromPrice?: number,
     toPrice?: number,
+    search?: string,
     page?: number,
     pageSize?: number
 ) => {
@@ -54,6 +55,10 @@ export const fetchGames = async (
             where.price.lte = toPrice;
         }
 
+        if(search) {
+            where.title = { contains: search, mode: 'insensitive' }
+        }
+
         let orderBy: any = {};
         if(filter) {
             switch (filter) {
@@ -64,10 +69,10 @@ export const fetchGames = async (
                     orderBy = { price: "desc" };
                     break;
                 case "recent":
-                    orderBy = { createdAt: "asc" };
+                    orderBy = { createdAt: "desc" };
                     break;
                 case "older":
-                    orderBy = { createdAt: "desc" }
+                    orderBy = { createdAt: "asc" }
             }
         }
 

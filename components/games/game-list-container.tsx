@@ -7,7 +7,7 @@ import { Platform } from '@prisma/client'
 import { useSearchParams } from 'next/navigation'
 
 
-const GameListContainer = ({ customClass }: { customClass?: string }) => {
+const GameListContainer = ({ customClass, mode }: { customClass?: string, mode: "user" | "admin" }) => {
 
   const searchParams = useSearchParams();
   
@@ -15,6 +15,7 @@ const GameListContainer = ({ customClass }: { customClass?: string }) => {
   const [filter, setFilter] = useState<"cheaper" | "expensive" | "recent" | "older">(searchParams.get('filter') as "cheaper" | "expensive" | "recent" | "older" || "");
   const [fromPrice, setFromPrice] = useState(Number(searchParams.get('fromPrice')) || 0);
   const [toPrice, setToPrice] = useState(Number(searchParams.get('toPrice')) || 0);
+  const search = searchParams.get('search') as string;
 
   return (
     <div className={`flex flex-col gap-10 ${customClass}`}>
@@ -32,6 +33,8 @@ const GameListContainer = ({ customClass }: { customClass?: string }) => {
           filter={filter}
           fromPrice={fromPrice}
           toPrice={toPrice}
+          search={search}
+          mode={mode}
         />
       </div>
     </div>

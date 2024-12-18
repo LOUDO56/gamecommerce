@@ -6,7 +6,7 @@ const EditGameDashboard = async () => {
 
   return (
     <div>
-        <GameListContainer customClass='m-14' />
+        <GameListContainer customClass='m-14' mode='admin' />
     </div>
   )
 }
