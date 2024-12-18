@@ -9,11 +9,9 @@ import React from 'react'
 const FormAdminContainer = ({ 
     title,
     children,
-    href
 }: { 
     title: string, 
-    children: React.ReactNode,
-    href?: string
+    children: React.ReactNode
 }) => {
 
   const searchParams = useSearchParams();
@@ -21,14 +19,14 @@ const FormAdminContainer = ({
 
   return (
     <div className="h-full flex justify-center items-center">
-        <div className="w-[500px] flex flex-col gap-3 m-5">
+        <div className="w-[500px] flex flex-col gap-3 m-5 relative">
             <h1 className="text-3xl text-center font-bold">{title}</h1>
             {backUrl && (
               <Link href={backUrl}>
-                <Button variant="outline" className='self-start rounded-full w-[30px] h-[35px]'><MoveLeft /></Button>
+                <Button variant="outline" className='absolute left-0 rounded-full w-[30px] h-[35px]'><MoveLeft /></Button>
               </Link>
             )}
-            <div>
+            <div className='mt-10'>
               {children}
             </div>
         </div>

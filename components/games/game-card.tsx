@@ -25,7 +25,7 @@ const GameCard = ({
         />
       </Link>
       <div className="flex flex-col items-start">
-        <span className="font-semibold">{title}</span>
+        <span className="font-semibold text-sm w-[200px]">{title}</span>
         <span className="text-sm">{price} €</span>
       </div>
     </div>

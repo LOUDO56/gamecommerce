@@ -24,12 +24,12 @@ const GameList = ({
 
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get('page') || "1");
-  const pageSize = parseInt(searchParams.get('pageSize') || "10");
+  const pageSize = parseInt(searchParams.get('pageSize') || "14");
   
   const [games, setGames] = useState<Array<Game>>([]);
   const [countGame, setCountGames] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const skeletonGameList = Array(5).fill(<GameSkeleton />)
+  const skeletonGameList = Array(14).fill(<GameSkeleton />)
 
   useEffect(() => {
     const loadGames = async () => {
@@ -50,7 +50,7 @@ const GameList = ({
 
   return (
     <div className='flex flex-col gap-3'>
-      <div className='flex flex-wrap gap-5 items-center sm:justify-start justify-center'>
+      <div className='flex flex-wrap gap-5 items-center xl:justify-start justify-center'>
         {isLoading && (
           skeletonGameList.map((skeleton, index) => (
             <div key={index}>
@@ -72,7 +72,7 @@ const GameList = ({
         )}
       </div>
       <div>
-        {!isLoading && <PaginationWithLinks page={page} pageSize={pageSize} totalCount={countGame} />}
+        {(!isLoading && countGame !== 0) && <PaginationWithLinks page={page} pageSize={pageSize} totalCount={countGame} />}
       </div>
     </div>
   )

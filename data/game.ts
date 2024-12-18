@@ -38,7 +38,7 @@ export const fetchGames = async (
     try {
 
         if(!page) page = 1;
-        if(!pageSize) pageSize = 10;
+        if(!pageSize) pageSize = 14;
         
         const where: any = {};
         
@@ -78,7 +78,9 @@ export const fetchGames = async (
             take: pageSize
         })
 
-        const totalCountGames = await prisma.game.count();
+        const totalCountGames = await prisma.game.count({
+            where,
+        });
 
         return { fetchedGames, totalCountGames };
     } catch (error) {

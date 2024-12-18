@@ -1,6 +1,7 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -10,8 +11,8 @@ import { filterForm, platformsForm } from '@/lib/utils'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { Cross, X } from 'lucide-react'
 import ResetButtonButton from '../ui/reset-select-button'
+import { Platform } from '@prisma/client'
 
 interface GameFilterProps {
   setPlatform: Function
@@ -26,16 +27,40 @@ const GameFilter = ({
   setFromPrice,
   setToPrice
 }: GameFilterProps) => {
-  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const form = useForm<z.infer<typeof FilterGameSchema>>({
     resolver: zodResolver(FilterGameSchema),
     defaultValues: {
-      platform: undefined,
-      filter: "",
-      fromPrice: 0,
-      toPrice: 0
+      platform: searchParams.get('platform') as Platform || undefined,
+      filter: searchParams.get('filter') || "",
+      fromPrice: Number(searchParams.get('fromPrice')) || 0,
+      toPrice: Number(searchParams.get('toPrice')) || 0
     }
   });
+
+  const updateUrlAndState = (values: z.infer<typeof FilterGameSchema>) => {
+    const validatedFields = FilterGameSchema.safeParse(values);
+
+    if(!validatedFields.success) return;
+
+    const { platform, filter, fromPrice, toPrice } = validatedFields.data;
+    
+    const params = new URLSearchParams();
+
+    if (platform) params.set('platform', platform);
+    if (filter) params.set('filter', filter);
+    if (fromPrice && fromPrice > 0) params.set('fromPrice', fromPrice.toString());
+    if (toPrice && toPrice > 0) params.set('toPrice', toPrice.toString());
+
+    router.push(`?${params.toString()}`, { scroll: false });
+
+    setPlatform(platform);
+    setFilter(filter);
+    setFromPrice(fromPrice);
+    setToPrice(toPrice);
+  };
 
   const selectHandleReset = (selectLabel: "platform" | "filter") => {
     if(selectLabel === "platform") {
@@ -45,10 +70,18 @@ const GameFilter = ({
       form.setValue('filter', '');
       setFilter("");
     }
+    updateUrlAndState(form.getValues());
   }
 
   const handleReset = () => {
-    form.reset();
+    form.reset({
+      platform: undefined,
+      filter: "",
+      fromPrice: 0,
+      toPrice: 0
+    });
+
+    updateUrlAndState(form.getValues());
 
     setPlatform(undefined);
     setFilter("");
@@ -56,35 +89,19 @@ const GameFilter = ({
     setToPrice(0);
   };
 
-  const handleChange = async (values: z.infer<typeof FilterGameSchema>) => {
-
-    console.log(values)
-    const validatedFields = FilterGameSchema.safeParse(values);
-
-    if(!validatedFields.success) return;
-
-    const { platform, filter, fromPrice, toPrice } = validatedFields.data;
-    
-    setPlatform(platform);
-    setFilter(filter);
-    setFromPrice(fromPrice);
-    setToPrice(toPrice);
-
-  };
-
   return (
     <Form {...form}>
-      <form className='flex lg:flex-row flex-col gap-5'>
+      <form className='flex xl:flex-row flex-col gap-5'>
         <FormField 
           control={form.control}
           name='platform'
           render={({ field }) => (
-            <FormItem className='lg:w-[200px] w-full relative'>
+            <FormItem className='xl:w-[200px] w-full relative'>
               <FormLabel>Platform</FormLabel>
               <Select 
                 onValueChange={(value) => {
                   field.onChange(value)
-                  handleChange({
+                  updateUrlAndState({
                     ...form.getValues(),
                   })
                 }} 
@@ -115,16 +132,17 @@ const GameFilter = ({
             </FormItem>
           )}
         />
+        {/* Rest of the form remains the same as your original implementation */}
         <FormField 
           control={form.control}
           name='filter'
           render={({ field }) => (
-            <FormItem className='lg:w-[200px] w-full relative'>
+            <FormItem className='xl:w-[200px] w-full relative'>
               <FormLabel>Filter</FormLabel>
               <Select 
                 onValueChange={(value) => {
                   field.onChange(value)
-                  handleChange({
+                  updateUrlAndState({
                     ...form.getValues(),
                   })
                 }} 
@@ -160,8 +178,8 @@ const GameFilter = ({
           control={form.control}
           name='fromPrice'
           render={({ field }) => (
-            <FormItem className='lg:w-[200px] w-full'>
-              <FormLabel>From</FormLabel>
+            <FormItem className='xl:w-[200px] w-full'>
+              <FormLabel>From €</FormLabel>
               <FormControl>
                 <Input 
                   type='number' 
@@ -169,7 +187,7 @@ const GameFilter = ({
                   value={field.value}
                   onChange={(e) => {
                     field.onChange(e);
-                    handleChange({
+                    updateUrlAndState({
                       ...form.getValues()
                     });
                   }}
@@ -183,8 +201,8 @@ const GameFilter = ({
           control={form.control}
           name='toPrice'
           render={({ field }) => (
-            <FormItem className='lg:w-[200px] w-full'>
-              <FormLabel>To</FormLabel>
+            <FormItem className='xl:w-[200px] w-full'>
+              <FormLabel>To €</FormLabel>
               <FormControl>
                 <Input 
                   type='number' 
@@ -192,7 +210,7 @@ const GameFilter = ({
                   value={field.value}
                   onChange={(e) => {
                     field.onChange(e);
-                    handleChange({
+                    updateUrlAndState({
                       ...form.getValues()
                     });
                   }}
@@ -202,7 +220,7 @@ const GameFilter = ({
             </FormItem>
           )}
         />
-        <Button type='reset' variant='outline' onClick={handleReset} className='lg:self-end lg:w-auto w-full self-start mt-1 lg:mt-0'>Reset</Button>
+        <Button type='reset' variant='outline' onClick={handleReset} className='xl:self-end xl:w-auto w-full self-start mt-1 xl:mt-0'>Reset</Button>
       </form>
     </Form>
   )
