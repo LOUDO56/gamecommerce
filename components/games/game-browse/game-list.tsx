@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import GameCard from './game-card';
 import GameSkeleton from './game-skeleton';
 import { useSearchParams } from 'next/navigation';
-import { PaginationWithLinks } from '../ui/pagination-with-links';
+import { PaginationWithLinks } from '../../ui/pagination-with-links';
 
 interface GameListProps {
   platform?: Platform,
@@ -28,7 +28,7 @@ const GameList = ({
 
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get('page') || "1");
-  const pageSize = parseInt(searchParams.get('pageSize') || "14");
+  const pageSize = parseInt(searchParams.get('pageSize') || "15");
   
   const [games, setGames] = useState<Array<Game>>([]);
   const [countGame, setCountGames] = useState(0);

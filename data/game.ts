@@ -39,7 +39,7 @@ export const fetchGames = async (
     try {
 
         if(!page) page = 1;
-        if(!pageSize) pageSize = 14;
+        if(!pageSize) pageSize = 15;
         
         const where: any = {};
         

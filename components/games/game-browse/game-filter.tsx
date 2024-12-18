@@ -2,16 +2,16 @@
 
 import React, { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { FilterGameSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { filterForm, platformsForm } from '@/lib/utils'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import ResetButtonButton from '../ui/reset-select-button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
+import { Input } from '../../ui/input'
+import { Button } from '../../ui/button'
+import ResetButtonButton from '../../ui/reset-select-button'
 import { Platform } from '@prisma/client'
 
 interface GameFilterProps {

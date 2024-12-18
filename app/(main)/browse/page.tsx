@@ -1,6 +1,6 @@
 'use client'
 
-import GameListContainer from '@/components/games/game-list-container';
+import GameListContainer from '@/components/games/game-browse/game-list-container';
 import React from 'react'
 
 const Browse = () => {

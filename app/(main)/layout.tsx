@@ -1,4 +1,4 @@
-import NavbarUser from '@/components/navbar-user'
+import NavbarUser from '@/components/ui/navbar-user'
 import React from 'react'
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
