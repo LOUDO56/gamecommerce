@@ -17,8 +17,11 @@ const GamePage = async ({
   }
 
   return (
-    <GameInfoContainer gameInfo={gameInfo} />
+    <div className="min-h-screen w-full pt-16 flex justify-center items-center">
+      <GameInfoContainer gameInfo={gameInfo} />
+    </div>
   )
 }
 
 export default GamePage
+

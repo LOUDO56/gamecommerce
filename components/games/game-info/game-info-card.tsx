@@ -4,18 +4,21 @@ import OnPlatform from './on-platform'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
 
-
 const GameInfoCard = ({
     gameInfo
 }: {
     gameInfo: Game | null
 }) => {
   return (
-    <div className='flex gap-10'>
-      <div className='w-[450px]'>
-        <img src={gameInfo?.imageUrl} alt={`Game ${gameInfo?.title} cover`} />
+    <div className='flex lg:flex-row flex-col gap-5 items-center lg:items-stretch'>
+      <div className='w-full aspect-[3/4] max-w-[250px] lg:max-w-[350px] mx-auto md:mx-0'>
+        <img 
+          src={gameInfo?.imageUrl} 
+          alt={`Game ${gameInfo?.title} cover`} 
+          className='w-full h-full object-cover shadow-lg'
+        />
       </div>
-      <Card className='w-[450px] flex flex-col h-full justify-between'>
+      <Card className='w-full max-w-md mx-auto md:mx-0 flex flex-col justify-between'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold'>Buy {gameInfo?.title}</CardTitle>
           <CardDescription>{gameInfo?.stock} items available.</CardDescription>
@@ -25,8 +28,7 @@ const GameInfoCard = ({
             ))}
           </div>
         </CardHeader>
-        <CardContent className='flex flex-col gap-5'>
-          
+        <CardContent>
         </CardContent>
         <CardFooter>
           <div className='flex flex-col gap-3 w-full'>
@@ -44,3 +46,4 @@ const GameInfoCard = ({
 }
 
 export default GameInfoCard
+
