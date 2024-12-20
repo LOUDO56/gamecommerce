@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
 const GameCard = ({
@@ -17,7 +18,7 @@ const GameCard = ({
 
   return (
     <div className='flex flex-col gap-2'>
-      <Link className="w-[200px] h-[250px] shadow-md rounded-sm overflow-hidden transition duration-300 ease-out hover:scale-105" href={href + "?backUrl=" + window.location.href}>
+      <Link className="w-[200px] h-[250px] shadow-md rounded-sm overflow-hidden transition duration-300 ease-out hover:scale-105" href={href}>
         <img 
             src={imageUrl} 
             alt={`${title} game cover`} 

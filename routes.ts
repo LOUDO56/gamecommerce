@@ -6,6 +6,8 @@ export const AUTH_ROUTES = [
 
 export const PUBLIC_ROUTES = [
     "/",
+    "/browse",
+    "/game"
 ]
 
 export const PRIVATES_ROUTES = [
