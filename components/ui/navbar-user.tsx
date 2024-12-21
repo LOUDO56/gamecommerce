@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ChangeEvent } from 'react'
 import { useDebouncedCallback } from 'use-debounce';
+import CartIcon from '../cart/cart-icon'
 
 const NavbarUser = () => {
 
@@ -36,7 +37,7 @@ const NavbarUser = () => {
 
   return (
     <header className='fixed w-full z-10'>
-        <nav className="flex items-center justify-between gap-3 w-full py-5 px-4 bg-orange-500 text-white">
+        <nav className="flex items-center justify-between gap-3 w-full py-5 px-7 bg-orange-500 text-white">
             <p className='sm:block hidden'>GameEcommerce</p>
             <form className='flex items-center' onSubmit={() => router.push("/browse")}>
                 <Input 
@@ -50,7 +51,7 @@ const NavbarUser = () => {
             </form>
             <div className="flex gap-4 items-center">
                 <Link href="/auth/register"><UserRound size={32} /></Link>
-                <ShoppingCart size={32} />
+                <CartIcon />
             </div>
 
         </nav>

@@ -3,12 +3,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import OnPlatform from './on-platform'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart } from 'lucide-react'
+import { useContext } from 'react'
+import { CartContext } from '@/hooks/use-cart'
 
 const GameInfoCard = ({
     gameInfo
 }: {
     gameInfo: Game | null
 }) => {
+
+  const { cartAction } = useContext(CartContext);
+
   return (
     <div className='flex lg:flex-row flex-col gap-5 items-center lg:items-stretch'>
       <div className='w-full aspect-[3/4] max-w-[250px] lg:max-w-[350px] mx-auto md:mx-0'>
@@ -34,7 +39,7 @@ const GameInfoCard = ({
           <div className='flex flex-col gap-3 w-full'>
             <span className='text-sm'>Get your code instantly after buying eligible for every platform!</span>
             <span className='text-4xl font-bold'>${gameInfo?.price}</span>
-            <Button className='flex items-center gap-2 w-full'>
+            <Button className='flex items-center gap-2 w-full' onClick={() => cartAction("ADD_ITEM", gameInfo?.id)}>
               <ShoppingCart />
               <span>Add to cart</span>
             </Button>

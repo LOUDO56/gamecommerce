@@ -116,10 +116,10 @@ model Cart {
 
 model CartItem {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
-  gameId   String @db.ObjectId
+  gameId   String @unique @db.ObjectId
   quantity Int
 
   game   Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  Cart   Cart?   @relation(fields: [cartId], references: [id])
+  Cart   Cart?   @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId String? @db.ObjectId
 }
