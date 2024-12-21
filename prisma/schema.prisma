@@ -31,7 +31,7 @@ model User {
   role          UserRole  @default(USER)
   accounts      Account[]
   orders        Order[]
-  cart          Cart?
+  cartItem      CartItem[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -72,7 +72,7 @@ model Game {
   title       String      @unique
   description String
   price       Float
-  platforms    Platform[]
+  platforms   Platform[]
   imageUrl    String
   stock       Int
   createdAt   DateTime    @default(now())
@@ -104,22 +104,12 @@ model OrderItem {
   orderId String? @db.ObjectId
 }
 
-model Cart {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String     @unique @db.ObjectId
-  items     CartItem[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model CartItem {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   gameId   String @unique @db.ObjectId
+  userId   String @db.ObjectId
   quantity Int
 
   game   Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  Cart   Cart?   @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  cartId String? @db.ObjectId
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
