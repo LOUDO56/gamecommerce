@@ -1,7 +1,7 @@
 'use client'
 
-import { addItemInCart, clearItemsInCart, removeItemInCart } from "@/actions/cart";
-import { createContext, useState } from "react";
+import { addItemInCart, clearItemsInCart, getCartItems, removeItemFromCart } from "@/actions/cart";
+import { createContext, useEffect, useState } from "react";
 
 type CartContextType = {
   carts: { id: string; quantity: number }[];
@@ -19,6 +19,14 @@ export const CartContextProvider = ({
   children: React.ReactNode
 }) => {
   const [carts, setCarts] = useState<{ id: string; quantity: number }[]>([]);
+
+  useEffect(() => {
+    const loadCartItems = async () => {
+      const items = await getCartItems();
+      setCarts(items as { id: string; quantity: number }[]);
+    }
+    loadCartItems();
+  }, [])
 
   const cartAction = async (action: "ADD_ITEM" | "REMOVE_ITEM" | "CLEAR", itemId?: string) => {
     switch (action) {
@@ -51,7 +59,7 @@ export const CartContextProvider = ({
               )
               .filter((item) => item.quantity > 0)
           );
-          await removeItemInCart(itemId);
+          await removeItemFromCart(itemId);
         }
         break;
 

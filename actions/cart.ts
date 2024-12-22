@@ -29,7 +29,7 @@ export const addItemInCart = async (idItem: string) => {
     }
 }
 
-export const removeItemInCart = async (idItem: string) => {
+export const removeItemFromCart = async (idItem: string) => {
     
     const session = await auth();
     if(!session) return;
@@ -73,5 +73,35 @@ export const getCartItems = async () => {
         where: { userId }
     });
 
-    return items;
+    return items.map(item => ({ id: item.id, quantity: item.quantity }));
+}
+
+export const getCountOfItem = async (itemId: string) => {
+    const session = await auth();
+    if(!session) return 0; 
+    const userId = session.user.id as string;
+
+    const item = await prisma.cartItem.findUnique({
+        where: { 
+            gameId: itemId,
+            userId 
+        }
+    })
+
+    return item?.quantity;
+}
+
+export const isInCart = async (itemId: string) => {
+    const session = await auth();
+    if(!session) return false; 
+    const userId = session.user.id as string;
+
+    const item = await prisma.cartItem.findUnique({
+        where: { 
+            gameId: itemId,
+            userId
+        }
+    })
+
+    return item !== null;
 }

@@ -1,18 +1,17 @@
 import { Game } from '@prisma/client'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import OnPlatform from './on-platform'
-import { Button } from '@/components/ui/button'
-import { ShoppingCart } from 'lucide-react'
-import { useContext } from 'react'
-import { CartContext } from '@/hooks/use-cart'
+import { getCountOfItem, isInCart } from '@/actions/cart'
+import CartController from '@/components/cart/cart-controller'
 
-const GameInfoCard = ({
+const GameInfoCard = async ({
     gameInfo
 }: {
     gameInfo: Game | null
 }) => {
 
-  const { cartAction } = useContext(CartContext);
+  const inCart = await isInCart(gameInfo?.id as string);
+  const itemCount = await getCountOfItem(gameInfo?.id as string);
 
   return (
     <div className='flex lg:flex-row flex-col gap-5 items-center lg:items-stretch'>
@@ -37,12 +36,14 @@ const GameInfoCard = ({
         </CardContent>
         <CardFooter>
           <div className='flex flex-col gap-3 w-full'>
-            <span className='text-sm'>Get your code instantly after buying eligible for every platform!</span>
+            <span className='text-sm'>Get your code instantly after buying</span>
+            <span className='text-sm'> eligible for every platform!</span>
             <span className='text-4xl font-bold'>${gameInfo?.price}</span>
-            <Button className='flex items-center gap-2 w-full' onClick={() => cartAction("ADD_ITEM", gameInfo?.id)}>
-              <ShoppingCart />
-              <span>Add to cart</span>
-            </Button>
+            <CartController 
+              itemId={gameInfo?.id as string} 
+              inCartParam={inCart} 
+              defaultQuantity={itemCount || 0} 
+            />
           </div>
         </CardFooter>
       </Card>
