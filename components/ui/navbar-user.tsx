@@ -1,8 +1,6 @@
-import { Input } from './input'
-import { Search, ShoppingCart, UserRound } from 'lucide-react'
-import Link from 'next/link'
 import SearchBar from './search-bar'
 import CartSheet from '../cart/cart-sheet'
+import User from './user'
 
 
 const NavbarUser = () => {
@@ -13,7 +11,7 @@ const NavbarUser = () => {
             <p className='sm:block hidden'>GameEcommerce</p>
             <SearchBar />
             <div className="flex gap-4 items-center">
-                <Link href="/auth/register"><UserRound size={32} /></Link>
+                <User />
                 <CartSheet />
             </div>
 
