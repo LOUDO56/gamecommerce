@@ -1,4 +1,4 @@
-import { Check, Cross } from 'lucide-react'
+import { Check } from 'lucide-react'
 import React from 'react'
 
 const OnPlatform = ({

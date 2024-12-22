@@ -1,9 +1,6 @@
 'use client'
 
-import React, { useContext, useState } from 'react'
-import { Button } from './button'
 import { Minus, Plus } from 'lucide-react'
-import { CartContext } from '@/hooks/use-cart'
 
 const QuantityButton = ({ 
   quantity,
@@ -11,8 +8,8 @@ const QuantityButton = ({
   handleRemoveCart
 }: { 
   quantity: number,
-  handleAddCart: Function,
-  handleRemoveCart: Function
+  handleAddCart: () => {},
+  handleRemoveCart: () => {}
 }) => {
 
 

@@ -1,24 +1,23 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { filterForm, platformsForm } from '@/lib/utils'
 import { FilterGameSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { filterForm, platformsForm } from '@/lib/utils'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
-import { Input } from '../../ui/input'
-import { Button } from '../../ui/button'
-import ResetButtonButton from '../../ui/reset-select-button'
 import { Platform } from '@prisma/client'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { Button } from '../../ui/button'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../ui/form'
+import { Input } from '../../ui/input'
+import ResetButtonButton from '../../ui/reset-select-button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 
 interface GameFilterProps {
-  setPlatform: Function;
-  setFilter: Function;
-  setFromPrice: Function;
-  setToPrice: Function;
+  setPlatform: any;
+  setFilter: any;
+  setFromPrice: any;
+  setToPrice: any;
 }
 
 const GameFilter = ({

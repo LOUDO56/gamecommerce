@@ -1,13 +1,12 @@
 
 'use client'
 
-import { CartContext } from '@/hooks/use-cart'
-import React, { useContext } from 'react'
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import CartIcon from './cart-icon'
-import { Button } from '../ui/button'
-import CartCard from './cart-card'
+import { CartContext } from '@/hooks/use-cart'
+import { useContext } from 'react'
 import CartBuy from './cart-buy'
+import CartCard from './cart-card'
+import CartIcon from './cart-icon'
 
 
 const CartSheet = () => {
@@ -27,7 +26,7 @@ const CartSheet = () => {
         <SheetHeader>
           <SheetTitle>Your carts</SheetTitle>
           <SheetDescription>
-            Double check before confirming. Once confirmed, you'll be redirected to the Stripe page.
+            Double check before confirming. Once confirmed, you&apos;ll be redirected to the Stripe page.
           </SheetDescription>
         </SheetHeader>
         <div className='py-5'>

@@ -1,16 +1,8 @@
-'use client'
-
-import { CartContext } from '@/hooks/use-cart'
-import { CircleX } from 'lucide-react'
-import React, { useContext } from 'react'
-
 const CartCard = ({
     item
 }: {
     item: CartItem
 }) => {
-
-  const { cartAction } = useContext(CartContext);
 
   return (
     <>

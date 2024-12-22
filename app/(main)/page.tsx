@@ -1,6 +1,3 @@
-import { signOut } from "@/auth";
-import { Button } from "@/components/ui/button";
-
 export default async function Home() {
   return (
     <div className="h-screen flex items-center flex-col gap-4 pt-32">

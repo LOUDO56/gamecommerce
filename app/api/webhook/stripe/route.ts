@@ -1,4 +1,3 @@
-import { clearItemsInCart } from "@/actions/cart";
 import { stripe } from "@/lib/stripe";
 import { prisma } from "@/prisma";
 import { headers } from "next/headers";
@@ -19,7 +18,7 @@ export const POST = async (req: Request) => {
             process.env.STRIPE_WEBHOOK_SECRET as string
         ) 
     } catch (error : unknown) {
-        return new Response('Error stripe webhook', { status: 400 })
+        return new Response('Error stripe webhook: ' + error, { status: 400 })
     }
 
     const session = event.data.object as Stripe.Checkout.Session

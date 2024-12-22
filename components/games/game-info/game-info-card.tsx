@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import OnPlatform from './on-platform'
 import { getCountOfItem, isInCart } from '@/actions/cart'
 import CartController from '@/components/cart/cart-controller'
+import Image from 'next/image'
 
 const GameInfoCard = async ({
     gameInfo
@@ -16,8 +17,8 @@ const GameInfoCard = async ({
   return (
     <div className='flex lg:flex-row flex-col gap-5 items-center lg:items-stretch'>
       <div className='w-full aspect-[3/4] max-w-[250px] lg:max-w-[350px] mx-auto md:mx-0'>
-        <img 
-          src={gameInfo?.imageUrl} 
+        <Image 
+          src={gameInfo?.imageUrl as string} 
           alt={`Game ${gameInfo?.title} cover`} 
           className='w-full h-full object-cover shadow-lg'
         />
@@ -42,8 +43,8 @@ const GameInfoCard = async ({
             <CartController 
               item={{
                 id: gameInfo?.id as string,
-                title: gameInfo?.title,
-                price: gameInfo?.price,
+                title: gameInfo?.title as string,
+                price: gameInfo?.price as number,
                 quantity: itemCount as number
               }} 
               inCartParam={inCart}

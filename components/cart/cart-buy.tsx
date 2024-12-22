@@ -1,10 +1,5 @@
-import React from 'react'
-import { Button } from '../ui/button'
-import { stripe } from '@/lib/stripe'
-import { auth } from '@/auth'
-import { prisma } from '@/prisma'
-import { redirect } from 'next/navigation'
 import { buyAction } from '@/actions/buy'
+import { Button } from '../ui/button'
 
 const CartBuy = ({
   totalPrice,

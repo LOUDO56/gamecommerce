@@ -1,10 +1,8 @@
 
-import React from 'react'
-import { Game } from '@prisma/client'
-import GameInfoCard from './game-info-card'
-import GameInfoAbout from './game-info-about'
-import { useSearchParams } from 'next/navigation'
 import BackUrl from '@/components/ui/back-url'
+import { Game } from '@prisma/client'
+import GameInfoAbout from './game-info-about'
+import GameInfoCard from './game-info-card'
 
 const GameInfoContainer = ({
     gameInfo
