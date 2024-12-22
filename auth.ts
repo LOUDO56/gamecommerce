@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
 import authConfig from "./auth.config";
 import { getUserById } from "./data/user";
+import { stripe } from "./lib/stripe";
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {

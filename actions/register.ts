@@ -5,13 +5,14 @@ import { z } from "zod"
 import bcryptjs from "bcryptjs";
 import { prisma } from "@/prisma";
 import { getUserByEmail } from "@/data/user";
+import { stripe } from "@/lib/stripe";
 
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
     const validatedFields = RegisterSchema.safeParse(values);
 
-    if(!validatedFields.success) {
-        return { error: "Invalid fields." }
+    if (!validatedFields.success) {
+        return { error: "Invalid fields." };
     }
 
     const { email, password, name } = validatedFields.data;
@@ -19,16 +20,23 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
     const existingUser = await getUserByEmail(email);
 
-    if(existingUser) {
-        return { error: "Email already in use!" }
+    if (existingUser) {
+        return { error: "Email already in use!" };
     }
 
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
         data: { email, name, password: hashedPassword }
     });
 
-    return { success: "Account created!" }
+    const stripeCustomer = await stripe.customers.create({
+        email: newUser.email as string
+    });
 
+    await prisma.user.update({
+        where: { id: newUser.id },
+        data: { stripeCustomerId: stripeCustomer.id }
+    });
 
+    return { success: "Account created!" };
 
 }

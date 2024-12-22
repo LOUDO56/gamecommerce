@@ -1,6 +1,6 @@
 type CartItem = {
     id: string;
-    title: string | undefined;
-    price: number | undefined;
+    title: string;
+    price: number;
     quantity: number;
 };

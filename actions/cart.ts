@@ -66,7 +66,7 @@ export const clearItemsInCart = async () => {
 
 export const getCartItems = async () => {
     const session = await auth();
-    if(!session) return;
+    if(!session) return [];
     const userId = session.user.id as string;
 
     const itemsCart = await prisma.cartItem.findMany({

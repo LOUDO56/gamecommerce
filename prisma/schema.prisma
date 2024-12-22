@@ -28,6 +28,7 @@ model User {
   emailVerified DateTime?
   password      String?
   image         String?
+  stripeCustomerId String? @unique
   role          UserRole  @default(USER)
   accounts      Account[]
   orders        Order[]
@@ -84,6 +85,7 @@ model Game {
 model Order {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   userId      String      @db.ObjectId
+  stripeSessionId String  @unique
   items       OrderItem[]
   totalAmount Float
   status      String
@@ -97,7 +99,6 @@ model OrderItem {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   gameId   String @db.ObjectId
   quantity Int
-  price    Float
 
   game    Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
   Order   Order?  @relation(fields: [orderId], references: [id])

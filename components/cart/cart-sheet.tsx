@@ -1,3 +1,4 @@
+
 'use client'
 
 import { CartContext } from '@/hooks/use-cart'
@@ -6,10 +7,16 @@ import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHe
 import CartIcon from './cart-icon'
 import { Button } from '../ui/button'
 import CartCard from './cart-card'
+import CartBuy from './cart-buy'
 
 
 const CartSheet = () => {
   const { carts } = useContext(CartContext)
+  let totalPrice = 0;
+  carts.forEach((item) => {
+    totalPrice = item.price * item.quantity;
+  })
+  totalPrice = Math.round(totalPrice * 100);
 
   return (
     <Sheet>
@@ -40,7 +47,9 @@ const CartSheet = () => {
         <SheetFooter>
           <SheetClose asChild>
             {carts.length > 0 && (
-              <Button type="submit">Buy</Button>
+              <CartBuy 
+                totalPrice={totalPrice}
+              />
             )}
           </SheetClose>
         </SheetFooter>

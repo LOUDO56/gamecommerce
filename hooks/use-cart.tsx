@@ -1,6 +1,6 @@
 'use client';
 
-import { addItemInCart, clearItemFromCart, clearItemsInCart, getCartItems, removeItemFromCart } from '@/actions/cart';
+import { addItemInCart, clearItemsInCart, getCartItems, removeItemFromCart } from '@/actions/cart';
 import { createContext, useEffect, useState } from 'react';
 
 type CartContextType = {
@@ -24,7 +24,6 @@ export const CartContextProvider = ({
     const loadCartItems = async () => {
       const items = await getCartItems();
       setCarts(items as CartItem[]);
-      console.log(items);
     }
     loadCartItems();
   }, [])
