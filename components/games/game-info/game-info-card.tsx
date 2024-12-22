@@ -22,7 +22,7 @@ const GameInfoCard = async ({
           className='w-full h-full object-cover shadow-lg'
         />
       </div>
-      <Card className='w-full max-w-md mx-auto md:mx-0 flex flex-col justify-between'>
+      <Card className='w-full lg:w-[30rem] mx-auto md:mx-0 flex flex-col justify-between'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold'>Buy {gameInfo?.title}</CardTitle>
           <CardDescription>{gameInfo?.stock} items available.</CardDescription>

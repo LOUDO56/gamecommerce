@@ -1,6 +1,6 @@
 'use client';
 
-import { addItemInCart, clearItemsInCart, getCartItems, removeItemFromCart } from '@/actions/cart';
+import { addItemInCart, clearItemFromCart, clearItemsInCart, getCartItems, removeItemFromCart } from '@/actions/cart';
 import { createContext, useEffect, useState } from 'react';
 
 type CartContextType = {
@@ -72,7 +72,7 @@ export const CartContextProvider = ({
           await removeItemFromCart(itemId);
         }
         break;
-
+        
       case 'CLEAR':
         setCarts([]);
         await clearItemsInCart()

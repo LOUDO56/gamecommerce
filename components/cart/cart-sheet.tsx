@@ -5,6 +5,8 @@ import React, { useContext } from 'react'
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import CartIcon from './cart-icon'
 import { Button } from '../ui/button'
+import CartCard from './cart-card'
+
 
 const CartSheet = () => {
   const { carts } = useContext(CartContext)
@@ -21,20 +23,25 @@ const CartSheet = () => {
             Double check before confirming. Once confirmed, you'll be redirected to the Stripe page.
           </SheetDescription>
         </SheetHeader>
-        <div>
+        <div className='py-5'>
           {carts.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p>Your cart is empty :(</p>
           ) : (
-            <ul>
+            <div className='flex flex-col gap-5'>
               {carts.map((item, index) => (
-                <li key={index}>{item.title} {item.quantity} {item.id}</li>
+                <CartCard 
+                  key={index}
+                  item={item}
+                />
               ))}
-            </ul>
+            </div>
           )}
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            {carts.length > 0 && (
+              <Button type="submit">Buy</Button>
+            )}
           </SheetClose>
         </SheetFooter>
       </SheetContent>
