@@ -21,7 +21,6 @@ const EditGameInfo = async ({
           imageUrl={gameInfo?.imageUrl}
           platforms={gameInfo?.platforms}
           price={gameInfo?.price}
-          stock={gameInfo?.stock}
           mode='edit'
         />
     </FormAdminContainer>

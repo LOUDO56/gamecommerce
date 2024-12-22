@@ -12,12 +12,12 @@ export const editGame = async (values: z.infer<typeof GameSchema>) => {
         return { error: "Invalid fields!" }
     }
 
-    const { id, title, description, price, platforms, imageUrl, stock } = validatedFields.data;
+    const { id, title, description, price, platforms, imageUrl } = validatedFields.data;
 
     try {
         await prisma.game.update({
             where: { id },
-            data: { title, description, price, platforms, imageUrl, stock }
+            data: { title, description, price, platforms, imageUrl }
         })
     
         return { success: "The game information has been updated!" }

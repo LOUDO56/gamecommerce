@@ -75,7 +75,6 @@ model Game {
   price       Float
   platforms   Platform[]
   imageUrl    String
-  stock       Int
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   OrderItem   OrderItem[]

@@ -24,7 +24,6 @@ interface FormGameProps {
   price?: number;
   platforms?: Platform[];
   imageUrl?: string;
-  stock?: number;
   mode: "add" | "edit";
 
 }
@@ -36,7 +35,6 @@ const FormGame = ({
   price = 0,
   platforms = [],
   imageUrl = "",
-  stock = 0,
   mode
 }: FormGameProps) => {
 
@@ -48,8 +46,7 @@ const FormGame = ({
       description,
       price,
       platforms,
-      imageUrl,
-      stock
+      imageUrl
     }
   });
 
@@ -174,20 +171,6 @@ const FormGame = ({
                 <FormLabel>Image URL</FormLabel>
                 <FormControl>
                   <Input type='text' autoComplete='off' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField 
-            control={form.control}
-            name='stock'
-            defaultValue={stock}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Stock</FormLabel>
-                <FormControl>
-                  <Input type='number' autoComplete='off' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
