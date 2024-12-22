@@ -41,7 +41,9 @@ const SearchBar = () => {
         className='bg-white w-full sm:w-[400px] md:w-[700px] border-none rounded-r-none text-black' 
         onChange={(e) => handleChange(e.currentTarget.value)} 
       />
-      <div className='font-semibold px-5 py-2 rounded-md rounded-l-none bg-black'><Search size={20} /></div>
+      <button type='submit'>
+        <div className='font-semibold px-5 py-2 rounded-md rounded-l-none bg-black'><Search size={20} /></div>
+      </button>
     </form>
   )
 }

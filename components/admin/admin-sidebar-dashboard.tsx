@@ -2,15 +2,13 @@ import { auth } from "@/auth"
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
     SidebarGroupLabel,
-    SidebarHeader,
     SidebarMenuButton,
     SidebarMenuItem,
   } from "@/components/ui/sidebar"
-import { ChevronDown, Gamepad, Pencil, Plus, User } from "lucide-react";
+import { ChevronDown, Gamepad } from "lucide-react";
 import Link from "next/link";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 
@@ -27,12 +25,7 @@ const itemsEdit = [
     title: "Game",
     url: "/admin/dashboard/edit/game",
     icon: Gamepad
-  },
-  {
-    title: "User",
-    url: "/admin/dashboard/edit/user",
-    icon: User
-  },
+  }
 ] 
 
 export async function AdminSidebarDashboard() {
