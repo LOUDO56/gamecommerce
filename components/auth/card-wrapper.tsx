@@ -11,7 +11,7 @@ interface CardWrapperProps {
     backButtonHref: string;
     backButtonLabel: string;
     backButtonLabelLink: string;
-    type: "signin" | "signup";
+    type?: "signin" | "signup";
     children: React.ReactNode;
 }
 
@@ -40,7 +40,7 @@ const CardWrapper = ({
                 </div>
             }
         </CardContent>
-        {showSocial && (
+        {(showSocial && type) && (
             <CardFooter>
                 <Social type={type} />
             </CardFooter>

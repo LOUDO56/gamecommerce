@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from './button'
 import { X } from 'lucide-react'
 
-const ResetButtonButton = ({ selectHandleReset }: { selectHandleReset: any } ) => {
+const ResetButtonButton = ({ selectHandleReset }: { selectHandleReset: (selectLabel: "platform" | "filter") => void } ) => {
   return (
     <Button 
       variant="outline"

@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,7 +18,7 @@ const GameCard = ({
   return (
     <div className='flex flex-col gap-2'>
       <Link className="w-[200px] h-[250px] shadow-md rounded-sm overflow-hidden transition duration-300 ease-out hover:scale-105" href={href}>
-        <Image 
+        <img 
             src={imageUrl} 
             alt={`${title} game cover`} 
             className="w-full object-fill"

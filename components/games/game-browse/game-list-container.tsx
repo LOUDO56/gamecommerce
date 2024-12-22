@@ -11,8 +11,8 @@ const GameListContainer = ({ customClass, mode }: { customClass?: string, mode: 
 
   const searchParams = useSearchParams();
   
-  const [platform, setPlatform] = useState<Platform>(searchParams.get('platform') as Platform || undefined);
-  const [filter, setFilter] = useState<"cheaper" | "expensive" | "recent" | "older">(searchParams.get('filter') as "cheaper" | "expensive" | "recent" | "older" || "");
+  const [platform, setPlatform] = useState<Platform | undefined>(searchParams.get('platform') as Platform || undefined);
+  const [filter, setFilter] = useState<"cheaper" | "expensive" | "recent" | "older" | "">(searchParams.get('filter') as "cheaper" | "expensive" | "recent" | "older" | "" || "");
   const [fromPrice, setFromPrice] = useState(Number(searchParams.get('fromPrice')) || 0);
   const [toPrice, setToPrice] = useState(Number(searchParams.get('toPrice')) || 0);
   const search = searchParams.get('search') as string;

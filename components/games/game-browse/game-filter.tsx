@@ -3,7 +3,7 @@
 import { filterForm, platformsForm } from '@/lib/utils'
 import { FilterGameSchema } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Platform } from '@prisma/client'
+import { $Enums, Platform } from '@prisma/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -14,10 +14,10 @@ import ResetButtonButton from '../../ui/reset-select-button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select'
 
 interface GameFilterProps {
-  setPlatform: any;
-  setFilter: any;
-  setFromPrice: any;
-  setToPrice: any;
+  setPlatform: React.Dispatch<React.SetStateAction<$Enums.Platform | undefined>>;
+  setFilter: React.Dispatch<React.SetStateAction<"cheaper" | "expensive" | "recent" | "older" | "">>;
+  setFromPrice: React.Dispatch<React.SetStateAction<number>>;
+  setToPrice: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const GameFilter = ({
@@ -57,10 +57,11 @@ const GameFilter = ({
 
     router.push(`?${params.toString()}`, { scroll: false });
 
-    setPlatform(platform);
-    setFilter(filter);
-    setFromPrice(fromPrice);
-    setToPrice(toPrice);
+    if(platform) setPlatform(platform);
+
+    if(filter) setFilter(filter as "cheaper" | "expensive" | "recent" | "older" | "");
+    if(fromPrice) setFromPrice(fromPrice);
+    if(toPrice) setToPrice(toPrice);
   };
 
   const selectHandleReset = (selectLabel: "platform" | "filter") => {

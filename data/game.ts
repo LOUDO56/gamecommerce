@@ -29,7 +29,7 @@ export const findGameById = async (id: string) => {
 
 export const fetchGames = async (
     platform?: Platform,
-    filter?: "cheaper" | "expensive" | "recent" | "older",
+    filter?: "cheaper" | "expensive" | "recent" | "older" | "",
     fromPrice?: number,
     toPrice?: number,
     search?: string,

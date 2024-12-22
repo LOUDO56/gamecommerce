@@ -8,8 +8,8 @@ const QuantityButton = ({
   handleRemoveCart
 }: { 
   quantity: number,
-  handleAddCart: () => {},
-  handleRemoveCart: () => {}
+  handleAddCart: () => void,
+  handleRemoveCart: () => void
 }) => {
 
 

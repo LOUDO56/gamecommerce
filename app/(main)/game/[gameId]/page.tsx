@@ -5,7 +5,7 @@ import React from 'react'
 const GamePage = async ({
   params
 }: {
-  params: { gameId: string }
+  params: Promise<{ gameId: string }>
 }) => {
 
   const { gameId } = await params;

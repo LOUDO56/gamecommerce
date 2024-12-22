@@ -6,7 +6,7 @@ import React from 'react'
 const EditGameInfo = async ({
     params
 }: {
-    params: { gameId: string }
+    params: Promise<{ gameId: string }>
 }) => {
 
   const { gameId } = await params;

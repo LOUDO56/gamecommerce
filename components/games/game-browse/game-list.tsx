@@ -10,7 +10,7 @@ import { PaginationWithLinks } from '../../ui/pagination-with-links';
 
 interface GameListProps {
   platform?: Platform,
-  filter?: "cheaper" | "expensive" | "recent" | "older",
+  filter?: "cheaper" | "expensive" | "recent" | "older" | "",
   fromPrice?: number,
   toPrice?: number,
   search?: string,
