@@ -12,8 +12,6 @@ export const editGame = async (values: z.infer<typeof GameSchema>) => {
         return { error: "Invalid fields!" }
     }
 
-    console.log(validatedFields.data);
-    
     const { id, title, description, price, platforms, imageUrl, stock } = validatedFields.data;
 
     try {

@@ -1,37 +1,39 @@
-'use client'
+'use client';
 
-import { addItemInCart, clearItemsInCart, getCartItems, removeItemFromCart } from "@/actions/cart";
-import { createContext, useEffect, useState } from "react";
+import { addItemInCart, clearItemsInCart, getCartItems, removeItemFromCart } from '@/actions/cart';
+import { createContext, useEffect, useState } from 'react';
 
 type CartContextType = {
-  carts: { id: string; quantity: number }[];
-  cartAction: (action: "ADD_ITEM" | "REMOVE_ITEM" | "CLEAR", itemId?: string) => void;
+  carts: CartItem[];
+  cartAction: (action: 'ADD_ITEM' | 'REMOVE_ITEM' | 'CLEAR', item?: CartItem) => void;
 };
 
 export const CartContext = createContext<CartContextType>({
-  carts: [{ id: "", quantity: 0 }],
+  carts: [],
   cartAction: () => {}
 });
 
 export const CartContextProvider = ({
   children
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) => {
-  const [carts, setCarts] = useState<{ id: string; quantity: number }[]>([]);
+  const [carts, setCarts] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const loadCartItems = async () => {
       const items = await getCartItems();
-      setCarts(items as { id: string; quantity: number }[]);
+      setCarts(items as CartItem[]);
+      console.log(items);
     }
     loadCartItems();
   }, [])
 
-  const cartAction = async (action: "ADD_ITEM" | "REMOVE_ITEM" | "CLEAR", itemId?: string) => {
+  const cartAction = async (action: 'ADD_ITEM' | 'REMOVE_ITEM' | 'CLEAR', item?: CartItem) => {
+    const itemId = item?.id as string;
     switch (action) {
-      case "ADD_ITEM":
-        if (itemId) {
+      case 'ADD_ITEM':
+        if (item) {
           setCarts((prevCarts) => {
             const existingItem = prevCarts.find((item) => item.id === itemId);
             if (existingItem) {
@@ -41,15 +43,23 @@ export const CartContextProvider = ({
                   : item
               );
             } else {
-              return [...prevCarts, { id: itemId, quantity: 1 }];
+              return [
+                ...prevCarts,
+                {
+                  id: itemId,
+                  title: item.title,
+                  price: item.price,
+                  quantity: 1
+                }
+              ];
             }
           });
-          await addItemInCart(itemId);
+          await addItemInCart(itemId)
         }
         break;
 
-      case "REMOVE_ITEM":
-        if (itemId) {
+      case 'REMOVE_ITEM':
+        if (item) {
           setCarts((prevCarts) =>
             prevCarts
               .map((item) =>
@@ -63,13 +73,13 @@ export const CartContextProvider = ({
         }
         break;
 
-      case "CLEAR":
+      case 'CLEAR':
         setCarts([]);
-        await clearItemsInCart();
+        await clearItemsInCart()
         break;
 
       default:
-        throw new Error("Invalid action.");
+        throw new Error('Action non reconnue');
     }
   };
 

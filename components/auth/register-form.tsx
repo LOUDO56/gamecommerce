@@ -34,8 +34,6 @@ const RegisterForm = () => {
     setPending(true);
     const res = await register(values);
     setPending(false);
-    console.log('aa')
-    console.log(res);
     setError(res.error);
     setSuccess(res.success);
     

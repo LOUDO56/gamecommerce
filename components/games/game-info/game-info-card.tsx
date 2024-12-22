@@ -40,9 +40,13 @@ const GameInfoCard = async ({
             <span className='text-sm'> eligible for every platform!</span>
             <span className='text-4xl font-bold'>${gameInfo?.price}</span>
             <CartController 
-              itemId={gameInfo?.id as string} 
-              inCartParam={inCart} 
-              defaultQuantity={itemCount || 0} 
+              item={{
+                id: gameInfo?.id as string,
+                title: gameInfo?.title,
+                price: gameInfo?.price,
+                quantity: itemCount as number
+              }} 
+              inCartParam={inCart}
             />
           </div>
         </CardFooter>

@@ -7,24 +7,22 @@ import QuantityButton from '../ui/quantity-button'
 import { CartContext } from '@/hooks/use-cart'
 
 const CartController = ({
-  itemId,
-  inCartParam,
-  defaultQuantity = 1
+  item,
+  inCartParam
 }: {
-  itemId: string,
-  inCartParam: boolean,
-  defaultQuantity: number
+  item: CartItem,
+  inCartParam: boolean
 }) => {
 
   const [inCart, setInCart] = useState(inCartParam);
-  const [quantity, setQuantity] = useState(defaultQuantity);
+  const [quantity, setQuantity] = useState(item.quantity || 0);
 
   const { cartAction } = useContext(CartContext);
 
   const handleAddCart = async () => {
     if(!inCart) setInCart(true);
     setQuantity(quantity + 1);
-    cartAction("ADD_ITEM", itemId);
+    cartAction("ADD_ITEM", item);
   }
 
   const handleRemoveCart = async () => {
@@ -33,7 +31,7 @@ const CartController = ({
     if(quantity - 1 === 0) {
       setInCart(false);
     }
-    cartAction("REMOVE_ITEM", itemId);
+    cartAction("REMOVE_ITEM", item);
   }
 
   

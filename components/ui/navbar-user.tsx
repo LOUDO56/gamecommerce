@@ -2,7 +2,7 @@ import { Input } from './input'
 import { Search, ShoppingCart, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import SearchBar from './search-bar'
-import CartIcon from '../cart/cart-icon'
+import CartSheet from '../cart/cart-sheet'
 
 
 const NavbarUser = () => {
@@ -14,7 +14,7 @@ const NavbarUser = () => {
             <SearchBar />
             <div className="flex gap-4 items-center">
                 <Link href="/auth/register"><UserRound size={32} /></Link>
-                <CartIcon />
+                <CartSheet />
             </div>
 
         </nav>
